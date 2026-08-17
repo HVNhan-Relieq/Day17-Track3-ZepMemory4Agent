@@ -84,31 +84,66 @@ def layer_badge(layer: str) -> str:
     return f'<span class="lab-badge" style="background:{color}">{layer}</span>'
 
 
+def case_messages(case: dict[str, Any]) -> list[dict[str, str]]:
+    """Seed turns for the short-term buffer: fixture first, else the real thread."""
+    fixture = case.get("fixture_messages")
+    if fixture:
+        return list(fixture)
+    user = next(
+        (u for u in load_dataset()["users"] if u["user_id"] == case.get("user_id")),
+        None,
+    )
+    session = next(
+        (s for s in (user or {}).get("sessions", []) if s["thread_id"] == case.get("thread_id")),
+        None,
+    )
+    return list((session or {}).get("messages", []))
+
+
+def wanted_layers(case: dict[str, Any]) -> list[str]:
+    """Same dispatch rule the evaluator uses, so the UI shows what gets scored."""
+    expected = case.get("expected_layer", "long_term")
+    if expected == "mixed":
+        return list(case.get("retrieve_layers") or ["long_term", "semantic"])
+    return [expected]
+
+
 def retrieve_for_case(
     memory: StudentMemory,
     case: dict[str, Any],
     extra_messages: list[dict[str, str]],
 ) -> dict[str, Any]:
-    """BONUS TODO: run student retrieval for the loaded case.
+    """Run student retrieval for the loaded case and budget the result."""
+    layers: dict[str, str] = {
+        "short_term": "",
+        "long_term": "",
+        "episodic": "",
+        "semantic": "",
+    }
 
-    Return a dict with keys:
-      - "merged_context": str  (StudentMemory.assemble_context output)
-      - "layers": dict[str, str]  (per-layer evidence: short_term/long_term/
-                                   episodic/semantic)
-      - "budget": dict  (the breakdown from assemble_context)
+    # Short-term always runs: it is local, free, and it is what makes the chat
+    # box feel like a conversation instead of 4 isolated lookups.
+    stm = ShortTermMemory(strategy="sliding", max_recent_messages=6, pressure_tokens=450)
+    for msg in case_messages(case) + list(extra_messages or []):
+        stm.add(msg["role"], msg["content"])
+    layers["short_term"] = stm.render()
 
-    Hints:
-      * Build short_term from case["fixture_messages"] if present, else from
-        the matching user/thread messages in data/sessions.json, plus
-        extra_messages. E01 has no fixture — it uses thread minh-s1.
-      * Decide which durable layers to fetch from case["expected_layer"] (or
-        case["retrieve_layers"] for "mixed"), then call
-        memory.retrieve_long_term / retrieve_episodic / retrieve_semantic.
-      * Keep user_id and thread_id from the loaded case.
-      * Finish with memory.assemble_context(layers).
-    """
-    _ = (memory, case, extra_messages, settings, ShortTermMemory)
-    raise NotImplementedError("BONUS TODO: run student retrieval for the loaded case")
+    query = case.get("query", "")
+    wanted = wanted_layers(case)
+
+    if "long_term" in wanted:
+        layers["long_term"] = memory.retrieve_long_term(
+            user_id=case["user_id"],
+            thread_id=case["thread_id"],
+            query=query,
+        )
+    if "episodic" in wanted:
+        layers["episodic"] = memory.retrieve_episodic(case["user_id"], query)
+    if "semantic" in wanted:
+        layers["semantic"] = memory.retrieve_semantic(settings.semantic_graph_id, query)
+
+    merged, breakdown = memory.assemble_context(layers)
+    return {"merged_context": merged, "layers": layers, "budget": breakdown}
 
 
 def main() -> None:
