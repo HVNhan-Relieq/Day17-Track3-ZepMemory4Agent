@@ -5,22 +5,22 @@
 - Cases: **11**
 - Passed: **11/11**
 - Evidence hit rate: **100.0%**
-- Average retrieval latency: **665.8 ms**
+- Average retrieval latency: **696.5 ms**
 - Average token reduction vs full source context: **14.2%**
 
 | Case | Layer | Pass | Latency ms | Retrieved tokens | Token reduction | Missing / Error |
 | --- | --- | --- | ---: | ---: | ---: | --- |
 | E01 | short_term | PASS | 0.0 | 133 | 0.0% |  |
-| E06 | semantic | PASS | 350.8 | 148 | 67.8% |  |
-| E09 | long_term | PASS | 1171.2 | 749 | 0.0% |  |
+| E06 | semantic | PASS | 325.7 | 148 | 67.8% |  |
+| E09 | long_term | PASS | 1119.9 | 749 | 0.0% |  |
 | E10 | short_term | PASS | 0.2 | 195 | 0.0% |  |
-| E02 | long_term | PASS | 1152.2 | 1434 | 0.0% |  |
-| E03 | long_term | PASS | 1228.3 | 1438 | 0.0% |  |
-| E04 | episodic | PASS | 229.8 | 233 | 0.0% |  |
-| E05 | episodic | PASS | 221.2 | 252 | 0.0% |  |
-| E07 | mixed | PASS | 1447.7 | 485 | 14.2% |  |
-| E11 | semantic | PASS | 235.8 | 146 | 74.2% |  |
-| E08 | long_term | PASS | 1286.9 | 1399 | 0.0% |  |
+| E02 | long_term | PASS | 1169.5 | 1409 | 0.0% |  |
+| E03 | long_term | PASS | 1635.4 | 1423 | 0.0% |  |
+| E04 | episodic | PASS | 319.5 | 269 | 0.0% |  |
+| E05 | episodic | PASS | 282.3 | 288 | 0.0% |  |
+| E07 | mixed | PASS | 1433.7 | 485 | 14.2% |  |
+| E11 | semantic | PASS | 211.0 | 146 | 74.2% |  |
+| E08 | long_term | PASS | 1164.4 | 1395 | 0.0% |  |
 
 ## Evidence excerpts
 
@@ -42,23 +42,23 @@
 
 ### E02 - long_term
 
-`<USER_SUMMARY> Minh's personal project is named ORCHID-27. Minh needs to complete a benchmark report by Friday at 16:00, identified as open loop LAB-REPORT-1600. Minh is currently debugging async HTTP, and the issue has been identified as connection churn, not a timeout threshold. Minh has tried increasing the timeout to 60s and is also checking the connection pool, client lifecycle, and concurrency. This debugging is related to the ASYNC-FIX-20 incident. The approach of reusing the aiohttp ClientSession and setting concurrency to 20 was effective in resolving connection churn.  Minh prefers Python and dislikes Java. When explaining code, Minh requests short examples. Minh is learning async/`
+`<USER_SUMMARY> Minh's personal project is named ORCHID-27, for which Python is preferred. The company project BLUEBIRD-42 requires the backend to use TypeScript with NestJS, and Python is not to be used for this project. Minh is currently debugging async HTTP issues related to connection churn as part of the ASYNC-FIX-20 incident.  Minh prefers Python and dislikes Java. When explaining code, Minh requests short examples. Minh is learning async/await and tends to confuse coroutines with Tasks. For explanations on this topic, Minh prefers timelines. Minh needs to complete a benchmark report, identified as open loop LAB-REPORT-1600, by Friday at 16:00.  When explaining coroutines and Tasks, the`
 
 ### E03 - long_term
 
-`<USER_SUMMARY> Minh's personal project is named ORCHID-27. Minh needs to complete a benchmark report by Friday at 16:00, identified as open loop LAB-REPORT-1600. Minh is currently debugging async HTTP, and the issue has been identified as connection churn, not a timeout threshold. Minh has tried increasing the timeout to 60s and is also checking the connection pool, client lifecycle, and concurrency. This debugging is related to the ASYNC-FIX-20 incident. The approach of reusing the aiohttp ClientSession and setting concurrency to 20 was effective in resolving connection churn.  Minh prefers Python and dislikes Java. When explaining code, Minh requests short examples. Minh is learning async/`
+`<USER_SUMMARY> Minh's personal project is named ORCHID-27, for which Python is preferred. The company project BLUEBIRD-42 requires the backend to use TypeScript with NestJS, and Python is not to be used for this project. Minh is currently debugging async HTTP issues related to connection churn as part of the ASYNC-FIX-20 incident.  Minh prefers Python and dislikes Java. When explaining code, Minh requests short examples. Minh is learning async/await and tends to confuse coroutines with Tasks. For explanations on this topic, Minh prefers timelines. Minh needs to complete a benchmark report, identified as open loop LAB-REPORT-1600, by Friday at 16:00.  When explaining coroutines and Tasks, the`
 
 ### E04 - episodic
 
-`EPISODE: Ten du an ca nhan cua toi la ORCHID-27. Toi thich Python va khong thich Java. Khi giai thich code, hay dung vi du ngan. EPISODE: Toi dang hoc async/await va hay nham coroutine voi Task. Neu sau nay gap chu de nay, hay giai thich bang timeline. EPISODE: TODO: hoan thanh benchmark report truoc thu Sau luc 16:00. Day la open loop LAB-REPORT-1600. EPISODE: Hom nay toi debug async HTTP. Toi da thu tang timeout len 60s nhung van fail. EPISODE: Cap nhat moi: voi du an cong ty BLUEBIRD-42, backend bat buoc dung TypeScript voi NestJS; khong dung Python cho backend du an nay. Preference Python van dung cho demo ca nhan ORCHI EPISODE: Cach hieu qua la reuse aiohttp ClientSession va dat concurr`
+`EPISODE: Ten du an ca nhan cua toi la ORCHID-27. Toi thich Python va khong thich Java. Khi giai thich code, hay dung vi du ngan. EPISODE: Toi dang hoc async/await va hay nham coroutine voi Task. Neu sau nay gap chu de nay, hay giai thich bang timeline. EPISODE: TODO: hoan thanh benchmark report truoc thu Sau luc 16:00. Day la open loop LAB-REPORT-1600. EPISODE: Hom nay toi debug async HTTP. Toi da thu tang timeout len 60s nhung van fail. EPISODE: Cach hieu qua la reuse aiohttp ClientSession va dat concurrency=20. Reflection: loi chinh la connection churn, khong phai timeout threshold. Ma su co ASYNC-FIX-20. EPISODE: Da ghi nhan trajectory: increase timeout khong hieu qua; ClientSession + con`
 
 ### E05 - episodic
 
-`EPISODE: Ten du an ca nhan cua toi la ORCHID-27. Toi thich Python va khong thich Java. Khi giai thich code, hay dung vi du ngan. EPISODE: Toi dang hoc async/await va hay nham coroutine voi Task. Neu sau nay gap chu de nay, hay giai thich bang timeline. EPISODE: TODO: hoan thanh benchmark report truoc thu Sau luc 16:00. Day la open loop LAB-REPORT-1600. EPISODE: Hom nay toi debug async HTTP. Toi da thu tang timeout len 60s nhung van fail. EPISODE: Hay kiem tra connection pool, lifecycle cua client va concurrency. EPISODE: Cap nhat moi: voi du an cong ty BLUEBIRD-42, backend bat buoc dung TypeScript voi NestJS; khong dung Python cho backend du an nay. Preference Python van dung cho demo ca nha`
+`EPISODE: Ten du an ca nhan cua toi la ORCHID-27. Toi thich Python va khong thich Java. Khi giai thich code, hay dung vi du ngan. EPISODE: Toi dang hoc async/await va hay nham coroutine voi Task. Neu sau nay gap chu de nay, hay giai thich bang timeline. EPISODE: TODO: hoan thanh benchmark report truoc thu Sau luc 16:00. Day la open loop LAB-REPORT-1600. EPISODE: Hom nay toi debug async HTTP. Toi da thu tang timeout len 60s nhung van fail. EPISODE: Hay kiem tra connection pool, lifecycle cua client va concurrency. EPISODE: Cach hieu qua la reuse aiohttp ClientSession va dat concurrency=20. Reflection: loi chinh la connection churn, khong phai timeout threshold. Ma su co ASYNC-FIX-20. EPISODE: `
 
 ### E07 - mixed
 
-`<LONG_TERM> <USER_SUMMARY> Minh's personal project is named ORCHID-27. Minh needs to complete a benchmark report by Friday at 16:00, identified as open loop LAB-REPORT-1600. Minh is currently debugging async HTTP, and the issue has been identified as connection churn, not a timeout threshold. Minh has tried increasing the timeout to 60s and is also checking the connection pool, client lifecycle, and concurrency. This debugging is related to the ASYNC-FIX-20 incident. The approach of reusing the aiohttp ClientSession and setting concurrency to 20 was effective in resolving connection churn.  Minh prefers Python and dislikes Java. When explaining code, Minh requests short examples. Minh is lea`
+`<LONG_TERM> <USER_SUMMARY> Minh's personal project is named ORCHID-27, for which Python is preferred. The company project BLUEBIRD-42 requires the backend to use TypeScript with NestJS, and Python is not to be used for this project. Minh is currently debugging async HTTP issues related to connection churn as part of the ASYNC-FIX-20 incident.  Minh prefers Python and dislikes Java. When explaining code, Minh requests short examples. Minh is learning async/await and tends to confuse coroutines with Tasks. For explanations on this topic, Minh prefers timelines. Minh needs to complete a benchmark report, identified as open loop LAB-REPORT-1600, by Friday at 16:00.  When explaining coroutines an`
 
 ### E11 - semantic
 
@@ -66,4 +66,4 @@
 
 ### E08 - long_term
 
-`<USER_SUMMARY> Minh's personal project is named ORCHID-27. Minh needs to complete a benchmark report by Friday at 16:00, identified as open loop LAB-REPORT-1600. Minh is currently debugging async HTTP, and the issue has been identified as connection churn, not a timeout threshold. Minh has tried increasing the timeout to 60s and is also checking the connection pool, client lifecycle, and concurrency. This debugging is related to the ASYNC-FIX-20 incident. The approach of reusing the aiohttp ClientSession and setting concurrency to 20 was effective in resolving connection churn.  Minh prefers Python and dislikes Java. When explaining code, Minh requests short examples. Minh is learning async/`
+`<USER_SUMMARY> Minh's personal project is named ORCHID-27, for which Python is preferred. The company project BLUEBIRD-42 requires the backend to use TypeScript with NestJS, and Python is not to be used for this project. Minh is currently debugging async HTTP issues related to connection churn as part of the ASYNC-FIX-20 incident.  Minh prefers Python and dislikes Java. When explaining code, Minh requests short examples. Minh is learning async/await and tends to confuse coroutines with Tasks. For explanations on this topic, Minh prefers timelines. Minh needs to complete a benchmark report, identified as open loop LAB-REPORT-1600, by Friday at 16:00.  When explaining coroutines and Tasks, the`
