@@ -1,6 +1,6 @@
 # Day 17 — Multi-Memory Agent với Zep (bài nộp)
 
-Student: **11/11 PASS, hit rate 100%**, avg latency 639 ms, avg token reduction 14.2%
+Student: **11/11 PASS, hit rate 100%**, avg latency 666 ms, avg token reduction 14.2%
 (`reports/benchmark.json`). No-memory: 2/11, 18.2%. `pytest -q`: 11 passed, 1 skipped.
 
 ## Phân tích benchmark
