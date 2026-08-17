@@ -1,7 +1,8 @@
 # Day 17 — Multi-Memory Agent với Zep (bài nộp)
 
 Student: **11/11 PASS, hit rate 100%**, avg latency 666 ms, avg token reduction 14.2%
-(`reports/benchmark.json`). No-memory: 2/11, 18.2%. `pytest -q`: 11 passed, 1 skipped.
+(`reports/benchmark.json`). Golden: **20/20, bonus 10/10** (`reports/golden_benchmark.json`).
+No-memory: 2/11, 18.2%. `pytest -q`: 12 passed.
 
 ## Phân tích benchmark
 
@@ -25,8 +26,8 @@ cùng lần chạy. Edge search `limit=20` kèm validity range giữ được c�
 
 E10: buffer giữ 16 message, 0 durable note, 0 compaction. Sliding giữ 6 message sau 10 lần
 compaction mà `REVIEW-DEADLINE-1600` (Friday, 16:00) vẫn còn trong `DURABLE_NOTES`, vì
-`extract_durable_notes` bắt marker viết hoa trước khi evict raw turn. Buffer không nén nên khi
-vượt context sẽ mất đúng constraint quan trọng nhất.
+`extract_durable_notes` bắt marker viết hoa trước khi evict raw turn. Buffer không nén nên
+vượt context là mất đúng constraint quan trọng nhất.
 
 ## Reflection
 
@@ -41,5 +42,5 @@ conflict resolution, deletion.
 
 **Guardrail:** `require_memory_consent` chặn durable write khi chưa opt-in; `minimize_pii`
 redact email/phone trước khi gửi Zep; `heartbeat --dry-run` chỉ đọc; `forget.py --verify-only`
-chứng minh right-to-be-forgotten (Zep user absent: True, Redis keys remaining: 0) còn shared KB
-giữ nguyên vì chứa domain knowledge, không phải PII.
+chứng minh right-to-be-forgotten (user absent: True, Redis keys: 0) còn shared KB giữ nguyên
+vì chứa domain knowledge, không phải PII.
